@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>01:モーターを動かす</title>
+
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai-sublime.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script> -->
+  </head>
+
+  <body>
+    <h1>01 _1&emsp;モーターを動かす</h1>
+    <br>
+
+    <div class="text_body">
+      <div class="source_code_section">
+
+        <div class="line_numbers">
+          <pre><code class="cpp">
+<span class="line_number"> 1 |</span>
+<span class="line_number"> 2 |</span>
+<span class="line_number"> 3 |</span>
+<span class="line_number"> 4 |</span>
+<span class="line_number"> 5 |</span>
+<span class="line_number"> 6 |</span>
+<span class="line_number"> 7 |</span>
+<span class="line_number"> 8 |</span>
+<span class="line_number"> 9 |</span>
+<span class="line_number">10 |</span>
+<span class="line_number">11 |</span>
+<span class="line_number">12 |</span>
+<span class="line_number">13 |</span>
+<span class="line_number">14 |</span>
+<span class="line_number">15 |</span>
+<span class="line_number">16 |</span>
+          </code></pre>
+        </div>
+
+        <div class="code">
+          <pre><code class="cpp">
+<span class="data_type">void</span> <span class="given_function">main_task</span>(<span class="given_structure">intptr_t</span> <span class="given_variable">unused</span>){
+
+  <span class="comment">//モーターのポート設定</span>
+  <span class="given_function">ev3_motor_config</span>(<span class="numerical_value">1</span>,<sapn class="given_enum_type">MEDIUM_MOTOR</sapn>);
+  <span class="given_function">ev3_motor_config</span>(<span class="numerical_value">2</span>,<sapn class="given_enum_type">MEDIUM_MOTOR</sapn>);
+  <span class="comment">//モーターの出力</span>
+  <span class="given_function">ev3_motor_set_power</span>(<span class="numerical_value">1</span>,<span class="numerical_value">50</span>);
+  <span class="given_function">ev3_motor_set_power</span>(<span class="numerical_value">2</span>,<span class="numerical_value">50</span>);
+  <span class="comment">//１秒待機</span>
+  <span class="given_function">tslp_tsk</span>(<span class="numerical_value">1000</span>);
+  <span class="comment">//モーターの停止</span>
+  <span class="given_function">ev3_motor_stop</span>(<span class="numerical_value">1</span>,<span class="boolean_type">true</span>);
+  <span class="given_function">ev3_motor_stop</span>(<span class="numerical_value">2</span>,<span class="boolean_type">true</span>);
+  
+}
+※ev3本体のB,CポートにMモーターを取り付けたものを用いる
+          </code></pre>
+        </div>
+
+      </div>
+
+      <div class="explanation_section">
+        <p>
+          このプログラムでは、
+          <h3>『B,Cのモーターが50の速さで右回転し、１秒後に停止する。』</h3>という動きをev3にさせることができる。
+        </p>
+        <p>
+          では、このコードの中身を詳しく見ていく
+        </p>
+
+        <ol>
+          <li>
+            　4,5行目の<strong class="yellow">“ev3_motor_config(port,type)”</strong>では、<span class="underline">モーターについての設定</span>をしている。
+            <strong class="skyblue">port</strong>には、モーターを繋いでいるポートを記入する ※A→0,B→1,C→2,D→3。
+            <strong class="skyblue">type</strong>には、繋いでいるモーターの種類を記入する ※Mモーター→MEDIUM_MOTOR,Lモーター→LARGE_MOTOR。
+            つまり、4,5行目では「ポートB,CにMモーターを繋いでいる」という設定を行っている。
+          </li><br>
+          
+          <li>
+            　7,8行目の<strong class="yellow">“ev3_motor_set_power(port,power)”</strong>では、<span class="underline">モーターに出力</span>をさせている。
+            <strong class="skyblue">power</strong>には、させたい出力の大きさの記入する。最高出力を100とした比率になっており、-100～100に対応できる。右回りが正回転になっている。イメージとしてはモーターをオンにすると言え、stopを入れるまで回転し続ける。
+            つまり、7,8行目では「ポートB,Cを50%で出力」をさせている。
+          </li><br>
+          
+          <li>
+            　10行目の<strong class="yellow">“tslp_tsk(time)”</strong>では、<span class="underline">プログラムの中断</span>をさせている。
+            <strong class="skyblue">time</strong>には、中断させる時間を記入する ※単位はミリ秒,1000ミリ秒＝1秒。
+            つまり、10行目では「１秒プログラムを中断」させている ※プログラムの実行の流れが中断されて、次の指示が行かないだけで、これまでに行った指示は止まらない。
+          </li><br>
+          
+          <li>
+            　12,13行目の<strong class="yellow">“ev3_motor_stop(port,brake)”</strong>では、<span class="underline">モーターを停止</span>させている。
+            <strong class="skyblue">brake</strong>には、ブレーキモードを記入する ※true→即時停止,false→惰性停止。
+            つまり、12,13行目では「ポートB,CのMモーターを停止」させている。
+          </li>
+        </ol>
+
+        <p>
+          これらから、プログラムの中身をまとめると
+          <h3>『B,CポートにMモーターがつながっていることを設定する。そして、B,Cのモーターを50％で出力させ、１秒待機した後、B,Cのモーターを停止させる。』</h3>
+          ということになる。
+        </p>
+      </div>
+    </div><br>
+
+
+    <div class="links">
+      <a href="../contents.html">前へ</a>
+      <a href="../contents.html">目次に戻る</a>
+      <a href="../contents.html">次へ</a>
+    </div>
+
+    <!-- <script>hljs.highlightAll();</script> -->
+  </body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>03:後退 -back()</title>
+
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+  </head>
+
+  <body>
+    <h1>03&emsp;後退 -back()</h1>
+    <br>
+
+    <div class="text_body">
+      <div class="source_code_section">
+
+        <div class="line_numbers">
+          <pre><code class="cpp">
+<span class="line_number"> 1 |</span>
+<span class="line_number"> 2 |</span>
+<span class="line_number"> 3 |</span>
+<span class="line_number"> 4 |</span>
+<span class="line_number"> 5 |</span>
+<span class="line_number"> 6 |</span>
+<span class="line_number"> 7 |</span>
+<span class="line_number"> 8 |</span>
+<span class="line_number"> 9 |</span>
+<span class="line_number">10 |</span>
+<span class="line_number">11 |</span>
+<span class="line_number">12 |</span>
+<span class="line_number">13 |</span>
+<span class="line_number">14 |</span>
+          </code></pre>
+        </div>
+
+        <div class="code">
+          <pre><code class="cpp">
+<span class="data_type">void</span> <span class="function">back</span>(<span class="data_type">float</span> <span class="variable">power</span>,<span class="data_type">float</span> <span class="variable">distance</span>){
+
+  <span class="data_type">float</span> <span class="variable">rotation</span> = <span class="variable">distance</span> / (<span class="numerical_value">86</span>*<span class="numerical_value">3.141592</span>);
+  <span class="data_type">float</span> <span class="variable">angle</span> = <span class="numerical_value">360</span> * <span class="variable">rotation</span>;
+  <span class="given_function">ev3_motor_reset</span>(<span class="numerical_value">1</span>);
+
+  <span class="control_syntax">while</span>(<span class="given_function">ev3_motor_get_counts</span>(<span class="numerical_value">1</span>) &lt; <span class="variable">angle</span>){
+    <span class="given_function">ev3_motor_set_power</span>(<span class="numerical_value">1</span>,<span class="variable">power</span>);
+    <span class="given_function">ev3_motor_set_power</span>(<span class="numerical_value">2</span>,-<span class="variable">power</span>);
+  }
+  <span class="given_function">ev3_motor_stop</span>(<span class="numerical_value">1</span>,<span class="boolean_type">true</span>);
+  <span class="given_function">ev3_motor_stop</span>(<span class="numerical_value">2</span>,<span class="boolean_type">true</span>);
+  
+}
+※左輪をBポート,右輪をCポートに取り付けたものを用いる
+          </code></pre>
+        </div>
+
+      </div>
+
+      <div class="explanation_section">
+        <p>
+          この関数は、基礎的な後退をさせる関数で、出力と距離を指定できる。
+        </p>
+        <p>
+          3,4行目の式では、進みたい距離(distance)をモーターを回す角度(angle)に変換している。<br>
+          回転数 = 距離 ÷ 車輪の円周 = 距離 ÷ (車輪の直径 × 円周率)<br>
+          &emsp;&emsp;&emsp;= distance / ((86)*3.14159265)<br>
+          角度 = 回転数 × 360<br>
+          &emsp;&emsp; = rotation * 360 <br>
+        </p>
+
+
+      </div>
+    </div><br>
+
+
+    <div class="links">
+      <a href="F02_forward().html">前へ</a>
+      <a href="../contents.html">目次に戻る</a>
+      <a href="F04_right_spin().html">次へ</a>
+    </div>
+
+  </body>
+
+</html>

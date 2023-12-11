@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>01:設定 -config()</title>
+
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+  </head>
+
+  <body>
+    <h1>01&emsp;設定 -config()</h1>
+    <br>
+
+    <div class="text_body">
+      <div class="source_code_section">
+
+        <div class="line_numbers">
+          <pre><code class="cpp">
+<span class="line_number"> 1 |</span>
+<span class="line_number"> 2 |</span>
+<span class="line_number"> 3 |</span>
+<span class="line_number"> 4 |</span>
+<span class="line_number"> 5 |</span>
+<span class="line_number"> 6 |</span>
+<span class="line_number"> 7 |</span>
+<span class="line_number"> 8 |</span>
+<span class="line_number"> 9 |</span>
+<span class="line_number">10 |</span>
+<span class="line_number">11 |</span>
+<span class="line_number">12 |</span>
+<span class="line_number">13 |</span>
+          </code></pre>
+        </div>
+
+        <div class="code">
+          <pre><code class="cpp">
+<span class="data_type">void</span> <span class="function">config</span>(){
+
+  <span class="given_function">ev3_motor_config</span>(<span class="numerical_value">0</span>,<sapn class="given_enum_type">MEDIUM_MOTOR</sapn>);
+  <span class="given_function">ev3_motor_config</span>(<span class="numerical_value">1</span>,<sapn class="given_enum_type">MEDIUM_MOTOR</sapn>);
+  <span class="given_function">ev3_motor_config</span>(<span class="numerical_value">2</span>,<sapn class="given_enum_type">MEDIUM_MOTOR</sapn>);
+  <span class="given_function">ev3_motor_config</span>(<span class="numerical_value">3</span>,<sapn class="given_enum_type">MEDIUM_MOTOR</sapn>);
+
+  <span class="given_function">ev3_sensor_config</span>(<span class="numerical_value">0</span>,<sapn class="given_enum_type">COLOR_SENSOR</sapn>);
+  <span class="given_function">ev3_sensor_config</span>(<span class="numerical_value">1</span>,<sapn class="given_enum_type">COLOR_SENSOR</sapn>);
+  <span class="given_function">ev3_sensor_config</span>(<span class="numerical_value">2</span>,<sapn class="given_enum_type">COLOR_SENSOR</sapn>);
+  <span class="given_function">ev3_sensor_config</span>(<span class="numerical_value">3</span>,<sapn class="given_enum_type">COLOR_SENSOR</sapn>);
+
+}
+※A,B,C,DのポートにMモーター、
+  1,2,3,4のポートにカラーセンサーを取り付けたものを用いる   
+          </code></pre>
+        </div>
+        
+      </div>
+
+      <div class="explanation_section">
+        <p>
+          この関数は、モーターとセンサーの設定をまとめてする関数。
+        </p>
+        <p>
+          main_tsk()の先頭に入れて、モーターとセンサーの設定を行う。<br>
+          この例ではMモーターとカラーセンサーのみだが、場合に応じてev3_motor_config()とev3_sensor_config()の引数を変える必要がある。
+          &emsp;&emsp;<img src="../pictures/motor_sensor_type.png" alt="type.picture" width="400"/>
+        </p>
+
+
+      </div>
+    </div><br>
+
+
+    <div class="links">
+      <a href="../contents.html">前へ</a>
+      <a href="../contents.html">目次に戻る</a>
+      <a href="F02_forward().html">次へ</a>
+    </div>
+
+  </body>
+
+</html>

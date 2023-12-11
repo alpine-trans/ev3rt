@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>04:右スピン -right_spin()</title>
+
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+  </head>
+
+  <body>
+    <h1>04&emsp;右スピン -right_spin()</h1>
+    <br>
+
+    <div class="text_body">
+      <div class="source_code_section">
+
+        <div class="line_numbers">
+          <pre><code class="cpp">
+<span class="line_number"> 1 |</span>
+<span class="line_number"> 2 |</span>
+<span class="line_number"> 3 |</span>
+<span class="line_number"> 4 |</span>
+<span class="line_number"> 5 |</span>
+<span class="line_number"> 6 |</span>
+<span class="line_number"> 7 |</span>
+<span class="line_number"> 8 |</span>
+<span class="line_number"> 9 |</span>
+<span class="line_number">10 |</span>
+<span class="line_number">11 |</span>
+<span class="line_number">12 |</span>
+<span class="line_number">13 |</span>
+<span class="line_number">14 |</span>
+<span class="line_number">15 |</span>
+          </code></pre>
+        </div>
+
+        <div class="code">
+          <pre><code class="cpp">
+<span class="data_type">void</span> <span class="function">right_spin</span>(<span class="data_type">float</span> <span class="variable">degree</span>){
+
+  <span class="data_type">float</span> <span class="variable">distance</span> = <span class="numerical_value">170</span> * <span class="numerical_value">3.141592</span> * (<span class="variable">degree</span>/<span class="numerical_value">360</span>);
+  <span class="data_type">float</span> <span class="variable">rotation</span> = <span class="variable">distance</span> / (<span class="numerical_value">86</span>*<span class="numerical_value">3.141592</span>);
+  <span class="data_type">float</span> <span class="variable">angle</span> = <span class="variable">rotation</span> * <span class="numerical_value">360</span>;
+  <span class="given_function">ev3_motor_reset</span>(<span class="numerical_value">1</span>);
+
+  <span class="control_syntax">while</span>(<span class="given_function">ev3_motor_get_counts</span>(<span class="numerical_value">1</span>) &gt; -<span class="variable">angle</span>){
+    <span class="given_function">ev3_motor_set_power</span>(<span class="numerical_value">1</span>,-<span class="numerical_value">30</span>);
+    <span class="given_function">ev3_motor_set_power</span>(<span class="numerical_value">2</span>,-<span class="numerical_value">30</span>);
+  }
+  <span class="given_function">ev3_motor_stop</span>(<span class="numerical_value">1</span>,<span class="boolean_type">true</span>);
+  <span class="given_function">ev3_motor_stop</span>(<span class="numerical_value">2</span>,<span class="boolean_type">true</span>);
+  
+}
+※左輪をBポート,右輪をCポートに取り付けたものを用いる   
+          </code></pre>
+        </div>
+        
+      </div>
+
+      <div class="explanation_section">
+        <p>
+          この関数は、右スピンをさせる関数で、スピン角度を大まかなに指定できる。
+          <img src="../pictures/spin.png" alt="spin.picture" width="200"/><br>
+          <sapn class="explain_figure">90度 右にスピンする際のイメージ図</sapn>
+        </p>
+        <p>
+          3~5行目の式では、マシンをスピンさせたい角度(degree)をモーターを回す角度(angle)に変換している。<br>
+          距離 = 車軸を直径とした円の円周 × スピン角度が一回転の何割か<br>
+          &emsp;&emsp; = 車輪間の距離 × 円周率 × スピン角度の割合<br>
+          &emsp;&emsp; = (170) * 3.141592 * (degree / 360)<br>
+          &emsp;&emsp; = distance<br>
+          回転数 = 距離 ÷ 車輪の円周 = 距離 ÷ (車輪の直径 × 円周率)<br>
+          &emsp;&emsp;&emsp; = distance / ((86)*3.14159265)<br>
+          &emsp;&emsp;&emsp; = rotation<br>
+          モーター角度 = 回転数 × 360<br>
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; = rotation * 360 <br>
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; = angle<br>
+          ※この値は計算上の数値であって、摩擦や重心、慣性などによるずれが考えられるため、angleを調整する必要がある。<br>
+          ※上の式を簡単にすると <strong>angle = 車輪間の距離 / 車輪の直径 * degree</strong> となる。<br>
+          &emsp;&emsp;<img src="../pictures/spin_math.png" alt="spin.picture" width="500"/>
+        </p>
+
+
+      </div>
+    </div><br>
+
+
+    <div class="links">
+      <a href="F03_back().html">前へ</a>
+      <a href="../contents.html">目次に戻る</a>
+      <a href="F05_left_spin().html">次へ</a>
+    </div>
+
+  </body>
+
+</html>
